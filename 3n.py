@@ -24,7 +24,10 @@ while True:
     
     # Count pairs of LSDs
     if previous_lsd is not None:
-        heatmap[previous_lsd][lsd] += 1
+        if previous_lsd % 2 == 0:
+            heatmap[previous_lsd][lsd] -= 1  # Decrement if previous_lsd is even
+        else:
+            heatmap[previous_lsd][lsd] += 1  # Increment if previous_lsd is odd
         
         # Check for specific pairs to annotate
         if (previous_lsd, lsd) == (2, 6):
@@ -65,13 +68,13 @@ reset_text = "\033[0m"     # Reset to default color
 
 # Annotate specific pairs on the heatmap
 for value in values_loop_4:
-    print(f"Loop 4 (entrance value of (8) at (8=>4) : exit value of (6) at (2=>6) ({yellow_text}{value[0]}{reset_text}, {yellow_text}{value[1]}{reset_text}))")
+    print(f"Loop 4 (entrance value of (8) at (8=>4) : exit value of (2) at (2=>6) ({yellow_text}{value[0]}{reset_text}, {yellow_text}{value[1]}{reset_text}))")
 
 for value in values_loop_6:
     print(f"Loop 6 enterance value of (2) at (2=>6) : exit value of (6) at (6=>8)) ({yellow_text}{value[0]}{reset_text}, {yellow_text}{value[1]}{reset_text}))")
 
 for value in values_loop_8:
-    print(f"Loop 8 enterance value of (6) at (6=>8) : exit value of (4) at (8=>4)) ({yellow_text}{value[0]}{reset_text}, {yellow_text}{value[1]}{reset_text}))")
+    print(f"Loop 8 enterance value of (6) at (6=>8) : exit value of (8) at (8=>4)) ({yellow_text}{value[0]}{reset_text}, {yellow_text}{value[1]}{reset_text}))")
 
 
 
@@ -80,7 +83,7 @@ print("Transitions:")
 for i in range(10):
     for j in range(10):
         count = heatmap[i][j]
-        if count > 0:
+        if count != 0:
             print(f"({i}, {j}) => {count}")
 
 
